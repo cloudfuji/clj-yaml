@@ -9,9 +9,11 @@
    :flow DumperOptions$FlowStyle/FLOW})
 
 (defn make-dumper-options
-  [& {:keys [flow-style]}]
-  (doto (DumperOptions.)
-    (.setDefaultFlowStyle (flow-styles flow-style))))
+  [& {:keys [flow-style explicit-start]}]
+  (let [explicit-start (if (nil? explicit-start) true explicit-start)]
+    (doto (DumperOptions.)
+      (.setDefaultFlowStyle (flow-styles flow-style))
+      (.setExplicitStart explicit-start))))
 
 (defn make-yaml
   [& {:keys [dumper-options]}]
